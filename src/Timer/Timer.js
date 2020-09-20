@@ -9,15 +9,19 @@ export default class Timer extends Component{
     }
 
     componentDidMount(){
-        this.interval = setInterval(this.decreaseTimer, 1000);
+        let interval = 1000;
+        if(this.state.step < 1000){
+            interval = this.state.step;
+        }
+        this.interval = setInterval(this.decreaseTimer, interval);
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        return !(nextState.time % (this.state.step / 1000));
+    shouldComponentUpdate(nextProps, nextState){   
+        return !(nextState.time % this.state.step);
     }
 
     componentDidUpdate(){
-        this.props.onTick(this.state.time);
+        this.props.onTick(this.state.time / 1000);
     }
 
     componentWillUnmount(){
@@ -27,9 +31,16 @@ export default class Timer extends Component{
     decreaseTimer = () => {
         if(!this.state.paused){   
             this.setState((prevState) => {
-                return {
-                    time: prevState.time - 1
+                if(this.state.step >= 1000){
+                    return {
+                        time: prevState.time - 1000
+                    }
+                } else {
+                    return {
+                        time: prevState.time - this.state.step
+                    }
                 }
+                
             });
             if(this.state.time === 0){
                 this.props.onTimeEnd();
@@ -37,7 +48,7 @@ export default class Timer extends Component{
                     this.setState({
                         time: this.props.time                  
                     })
-                }, 1000);
+                }, this.state.step >= 1000 ? 1000 : this.state.step);
             }
         }       
     }
@@ -52,11 +63,10 @@ export default class Timer extends Component{
     }
     
     formatTimer = () => {
-        const time = this.state.time;
-        const seconds = time % 60;
-        const minutes = (time - seconds) / 60;
-        const result = ("0" + minutes).slice(-2) + " : " + ("0" + seconds).slice(-2);
-        return result;
+        const time = this.state.time / 1000;
+        const sec = time % 60;
+        const min = (time - sec) / 60;
+        return `${min > 9 ? min : "0" + min} : ${sec > 9 ? sec : "0" + sec}`;
     }
 
     render(){

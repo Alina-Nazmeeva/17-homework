@@ -12,25 +12,12 @@ export default class InfiniteTimer extends Component{
         }
     }
     onTimeEnd = () => console.log("Час вийшов!");
-    // onTimeEnd = () => {
-    //     console.log("Час вийшов!");
-    //     this.setState({ time: 5 });
-    // }
-    // onTimeEnd = () => {
-    //     console.log("Час вийшов!");
-    //     const time = this.state.time;
-    //     this.setState((prevState) => {
-    //         return {
-    //             time: prevState.time
-    //         }
-    //     });
-    // }
     onTimeStart = (timeLeft) => console.log("Таймер запущено!");
     onTimePause = (timeLeft) => console.log("Таймер на паузі!");
     onTimeChange = (event) => {
         const newTime = event.target.value;
         this.setState({
-            time: newTime
+            time: newTime * 1000
         });
     }
 
@@ -46,7 +33,7 @@ export default class InfiniteTimer extends Component{
                         onTimeStart={this.onTimeStart}
                         onTimePause={this.onTimePause}     
                 />
-                <input type="number" min="1" max="100" value={this.state.time} onChange={this.onTimeChange} />   
+                <input type="number" min="1" max="100" value={this.state.time / 1000} onChange={this.onTimeChange} />   
             </div>
         )
     }

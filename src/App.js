@@ -3,13 +3,17 @@ import './App.css';
 import InfiniteTimer from './Timer/InfiniteTimer';
 
 const timers = [{
-  time: 5,
+  time: 5000,
   autostart: true,
   step: 1000
 }, {
-  time: 10,
-  autostart: true,
+  time: 10000,
+  autostart: false,
   step: 2000
+}, {
+  time: 20000,
+  autostart: false,
+  step: 100
 }];
 
 function App() {
