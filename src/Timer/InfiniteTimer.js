@@ -12,8 +12,8 @@ export default class InfiniteTimer extends Component{
         }
     }
     onTimeEnd = () => console.log("Час вийшов!");
-    onTimeStart = (timeLeft) => console.log("Таймер запущено!");
-    onTimePause = (timeLeft) => console.log("Таймер на паузі!");
+    onTimeStart = () => console.log("Таймер запущено!");
+    onTimePause = () => console.log("Таймер на паузі!");
     onTimeChange = (event) => {
         const newTime = event.target.value;
         this.setState({
