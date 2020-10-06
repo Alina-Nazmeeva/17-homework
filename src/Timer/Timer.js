@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-export default class Timer extends Component{
+class Timer extends Component{
     state = {
         time: this.props.time,
         autostart: this.props.autostart,
         step: this.props.step,
         paused: !this.props.autostart
-    }
+    }   
 
     componentDidMount(){
         let interval = 1000;
@@ -29,7 +29,7 @@ export default class Timer extends Component{
     }
 
     decreaseTimer = () => {
-        if(!this.state.paused){   
+        if(!this.state.paused){
             this.setState((prevState) => {
                 if(this.state.step >= 1000){
                     return {
@@ -39,8 +39,7 @@ export default class Timer extends Component{
                     return {
                         time: prevState.time - this.state.step
                     }
-                }
-                
+                }  
             });
             if(this.state.time === 0){
                 this.props.onTimeEnd();
@@ -63,12 +62,11 @@ export default class Timer extends Component{
     }
     
     formatTimer = () => {
-        const time = this.state.time / 1000;
-        const sec = time % 60;
-        const min = (time - sec) / 60;
+        const timeInSeconds = this.state.time / 1000;
+        const sec = timeInSeconds % 60;
+        const min = (timeInSeconds - sec) / 60;
         return `${min > 9 ? min : "0" + min} : ${sec > 9 ? sec : "0" + sec}`;
     }
-
     render(){
         return(
             <div className="timer">
@@ -78,9 +76,11 @@ export default class Timer extends Component{
                             {this.state.paused ? "Start" : "Pause"}
                 </button>
                 <div className="scale-wrapper" style={{backgroundColor: `${this.state.time === 0 ? "red" : "white"}`}}>
-                    <div className="scale" style={{width: `${100/this.props.time*this.state.time}%`}}></div>
+                    <div className="scale" style={{width: `${100 / this.props.time * this.state.time}%`}}></div>
                 </div>
             </div>
         )
     }
 }
+
+export default Timer;

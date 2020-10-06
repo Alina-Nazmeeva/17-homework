@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Timer from './Timer';
 
-export default class InfiniteTimer extends Component{
+class InfiniteTimer extends Component{
     state = {
         time: this.props.time
     }
@@ -20,8 +20,7 @@ export default class InfiniteTimer extends Component{
             time: newTime * 1000
         });
     }
-
-
+    
     render(){
         return (
             <div className="infinite-timer">
@@ -38,3 +37,5 @@ export default class InfiniteTimer extends Component{
         )
     }
 }
+
+export default InfiniteTimer;

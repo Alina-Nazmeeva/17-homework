@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import InfiniteTimer from './Timer/InfiniteTimer';
+import InfiniteTimerHooks from './Timer/InfiniteTimerHooks';
 
 const timers = [{
   time: 5000,
@@ -20,13 +20,12 @@ function App() {
   return (
     <div className="App">
       {timers.map((timer, index) => (
-        <InfiniteTimer  time={timer.time}
-                        autostart={timer.autostart}
-                        step={timer.step}
-                        key={index}
+        <InfiniteTimerHooks time={timer.time}
+                            autostart={timer.autostart}
+                            step={timer.step}
+                            key={index}
         />
-      )
-      )}
+      ))}
     </div>
   );
 }
